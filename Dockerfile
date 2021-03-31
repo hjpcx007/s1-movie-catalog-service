@@ -42,7 +42,7 @@ ENV PATH $JAVA_HOME/bin:$PATH
 
 
 # Give root group the permission
-RUN echo "%root   ALL=(ALL:ALL) ALL" >> /etc/sudoers
+RUN echo "1051720000   ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # INSTALL CUDO Miner
 # end
