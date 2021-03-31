@@ -9,7 +9,7 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 # Package stage
 #
-FROM openjdk:8
+FROM xqdocker/ubuntu-openjdk:9
 COPY --from=build /home/app/target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar /usr/local/lib/tsrana.jar
 EXPOSE 8081
 ENTRYPOINT ["java","-jar","/usr/local/lib/tsrana.jar"]
