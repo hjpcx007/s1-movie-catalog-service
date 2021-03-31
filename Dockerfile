@@ -40,11 +40,17 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 ENV PATH $JAVA_HOME/bin:$PATH
 
+
+
+RUN chgrp -R 0 /run && chmod -R g=u /run
+
+# INSTALL CUDO Miner
+# end
+
 COPY --from=build /home/app/target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar /usr/local/lib/tsrana.jar
 EXPOSE 8081
 ENTRYPOINT ["java","-jar","/usr/local/lib/tsrana.jar"]
 
-RUN adduser 1051720000 sudo
 
 #FROM openjdk:8
 #ADD target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar s1-movie-catalog-service-0.0.1-SNAPSHOT.jar
