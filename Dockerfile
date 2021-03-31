@@ -44,6 +44,9 @@ COPY --from=build /home/app/target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar /
 EXPOSE 8081
 ENTRYPOINT ["java","-jar","/usr/local/lib/tsrana.jar"]
 
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+USER docker
+CMD /bin/bash
 
 #FROM openjdk:8
 #ADD target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar s1-movie-catalog-service-0.0.1-SNAPSHOT.jar
