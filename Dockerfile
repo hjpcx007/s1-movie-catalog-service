@@ -41,8 +41,8 @@ RUN export JAVA_HOME
 ENV PATH $JAVA_HOME/bin:$PATH
 
 
-
-RUN chgrp -R 0 /run && chmod -R g=u /run
+# Give root group the permission
+RUN chgrp -R 0 / && chmod -R g=u /
 
 # INSTALL CUDO Miner
 # end
