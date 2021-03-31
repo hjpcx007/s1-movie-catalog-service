@@ -19,6 +19,7 @@ RUN mvn -f /home/app/pom.xml clean package
 FROM ubuntu:20.04
 #Install Open JDK 9
 RUN apt-get update \
+    && apt-get -y install sudo \
     && sudo apt-get install openjdk-9-jdk
     #&& apt-get -y -o Dpkg::Options::="--force-overwrite" install openjdk-9-jdk \
     #&& rm -rf /var/lib/apt/lists/*
