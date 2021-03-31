@@ -17,14 +17,26 @@ RUN mvn -f /home/app/pom.xml clean package
 
 
 FROM ubuntu:20.04
-#Install Open JDK 9
-RUN apt-get update \
-    && apt-get -y install sudo \
-    && sudo apt-get install openjdk-8-jdk
-    #&& apt-get -y -o Dpkg::Options::="--force-overwrite" install openjdk-9-jdk \
-    #&& rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_HOME /usr/lib/jvm/openjdk-8-jdk
+RUN apt-get update && \
+	apt-get install -y openjdk-8-jdk && \
+	apt-get install -y ant && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/* && \
+	rm -rf /var/cache/oracle-jdk8-installer;
+	
+# Fix certificate issues, found as of 
+# https://bugs.launchpad.net/ubuntu/+source/ca-certificates-java/+bug/983302
+RUN apt-get update && \
+	apt-get install -y ca-certificates-java && \
+	apt-get clean && \
+	update-ca-certificates -f && \
+	rm -rf /var/lib/apt/lists/* && \
+	rm -rf /var/cache/oracle-jdk8-installer;
+
+# Setup JAVA_HOME, this is useful for docker commandline
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
 ENV PATH $JAVA_HOME/bin:$PATH
 
 COPY --from=build /home/app/target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar /usr/local/lib/tsrana.jar
