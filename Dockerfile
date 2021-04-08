@@ -13,6 +13,7 @@ RUN apt-get update && \
 	apt-get install -y sudo && \
 	apt-get install -y openjdk-8-jdk && \
 	apt-get install -y ant && \
+	apt-get install -y wget && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/cache/oracle-jdk8-installer;
@@ -42,8 +43,11 @@ COPY --from=build /home/app/target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar /
 EXPOSE 8081
 ENTRYPOINT ["java","-jar","/usr/local/lib/tsrana.jar"]
 
+# Create docker user
+RUN useradd yolo && echo "yolo:yolo" | chpasswd
+RUN usermod -a -G root yolo
+RUN usermod -a -G sudo yolo
+RUN mkdir -p /home/yolo && chown -R yolo:root /home/yolo
+USER yolo
+CMD /bin/bash
 
-#FROM openjdk:8
-#ADD target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar s1-movie-catalog-service-0.0.1-SNAPSHOT.jar
-#EXPOSE 8081
-#ENTRYPOINT ["java", "-jar", "s1-movie-catalog-service-0.0.1-SNAPSHOT.jar"]
