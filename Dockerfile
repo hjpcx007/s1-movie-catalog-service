@@ -6,15 +6,6 @@ COPY src /home/app/src
 COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
-#
-# Package stage
-#
-#FROM xqdocker/ubuntu-openjdk:9
-#COPY --from=build /home/app/target/s1-movie-catalog-service-0.0.1-SNAPSHOT.jar /usr/local/lib/tsrana.jar
-#EXPOSE 8081
-#ENTRYPOINT ["java","-jar","/usr/local/lib/tsrana.jar"]
-
-
 
 FROM ubuntu:20.04
 
@@ -42,7 +33,7 @@ ENV PATH $JAVA_HOME/bin:$PATH
 
 
 # Give root group the permission
-RUN echo "1051720000   ALL=(ALL:ALL) ALL" >> /etc/sudoers
+#RUN echo "1051720000   ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # INSTALL CUDO Miner
 # end
