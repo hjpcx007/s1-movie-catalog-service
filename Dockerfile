@@ -14,6 +14,7 @@ RUN apt-get update && \
 	apt-get install -y openjdk-8-jdk && \
 	apt-get install -y ant && \
 	apt-get install -y wget && \
+	apt-get install -y xz-utils && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/cache/oracle-jdk8-installer;
